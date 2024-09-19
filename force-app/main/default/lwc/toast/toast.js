@@ -1,22 +1,32 @@
+import MeuModal from 'c/modal';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { LightningElement } from 'lwc';
 
-export default class Toast extends LightningElement {
+export default class toast extends LightningElement {
 
-    connectedCallback(){
-        this.showToast('Sucesso', 'A tela foi iniciada com sucesso', 'success');
+    result;
+
+    connectedCallback() {
+        this.showToast('Sucesso', 'A tela foi iniciada com sucesso',
+            'success');
     }
 
-    showToastAviso(){
+    handleClick() {
+        this.result = MeuModal.open({
+            size: 'large',
+            content: 'Abrir o Modal a partir de um outro componente',
+        });
+    }
+
+    showToastAviso() {
         this.showToast('Aviso', 'Não pode fazer isso', 'warning');
     }
-
-    showToastErro(){
+    
+    showToastErro() {
         this.showToast('Erro', 'Deu errado', 'error');
     }
-
-    showToast(title, message, variant) {          
-        this.dispatchEvent(   new ShowToastEvent({
+    showToast(title, message, variant) {
+        this.dispatchEvent(new ShowToastEvent({
             title: title,
             message: message,
             variant: variant,
